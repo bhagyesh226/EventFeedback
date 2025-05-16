@@ -2,34 +2,39 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/register`,
         { email, password },
         { withCredentials: true }
       );
       sessionStorage.setItem("token", res.data.token);
-      alert("Login successful. Redirecting to feedback...");
+      alert("Registration successful. Redirecting to feedback...");
       window.location.href = "/feedback";
     } catch (err) {
-      alert("Login failed. Please check your credentials.");
-      console.error(err);
+      if (err.response?.status === 400) {
+        alert("User already exists. Please log in.");
+        window.location.href = "/login";
+      } else {
+        alert("Registration failed");
+        console.error(err);
+      }
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleRegister}
         className="bg-gray-800 p-6 rounded shadow-md w-full max-w-sm space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center">Login</h2>
+        <h2 className="text-2xl font-bold text-center">Register</h2>
         <input
           type="email"
           placeholder="Email"
@@ -48,16 +53,16 @@ export default function Login() {
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold"
+          className="w-full bg-green-600 hover:bg-green-700 py-2 rounded font-semibold"
         >
-          Login
+          Register
         </button>
 
-        {/* Link to Register page */}
+        {/* Link to Login page */}
         <p className="text-sm text-center mt-2">
-          Don't have an account?{" "}
-          <Link to="/register" className="text-blue-400 hover:underline">
-            Register here
+          Already have an account?{" "}
+          <Link to="/" className="text-blue-400 hover:underline">
+            Login here
           </Link>
         </p>
       </form>
