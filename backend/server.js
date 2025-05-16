@@ -13,6 +13,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://event-feedback-system.onrender.com",
+  "https://event-feedback-system.vercel.app/",
 ];
 
 app.use(
