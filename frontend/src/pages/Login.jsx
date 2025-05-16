@@ -9,15 +9,17 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/api/users/register", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/register`,
+        { email, password },
+        { withCredentials: true } // if using auth headers or cookies
+      );
       sessionStorage.setItem("token", res.data.token);
       setToken(res.data.token);
       window.location.href = "/feedback";
     } catch (err) {
       alert("Login failed");
+      console.error(err);
     }
   };
 

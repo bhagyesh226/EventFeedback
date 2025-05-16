@@ -27,15 +27,21 @@ export default function FeedbackPage() {
     try {
       const token = sessionStorage.getItem("token");
       await axios.post(
-        "http://localhost:3000/api/feedbacks",
+        `${import.meta.env.VITE_API_BASE_URL}/api/feedbacks`,
         { event, comment, rating },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
       );
       alert("Feedback submitted!");
       setEvent("");
       setComment("");
       setRating(0);
     } catch (err) {
+      console.error("Feedback submission error:", err);
       alert("Submission failed");
     }
   };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL + "/api";
 
 export default function History() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -17,6 +17,7 @@ export default function History() {
     try {
       const res = await axios.get(`${BASE_URL}/feedbacks`, {
         headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setFeedbacks(res.data);
     } catch (error) {
@@ -32,6 +33,7 @@ export default function History() {
     try {
       await axios.delete(`${BASE_URL}/feedbacks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setFeedbacks((prev) => prev.filter((fb) => fb._id !== id));
     } catch (error) {
@@ -50,7 +52,10 @@ export default function History() {
       await axios.put(
         `${BASE_URL}/feedbacks/${editingId}`,
         { comment: editedComment, rating: editedRating },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       setEditingId(null);
       fetchFeedbacks();
