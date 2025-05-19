@@ -125,7 +125,7 @@ export default function FeedbackPage() {
                   handleLogout();
                   setIsOpen(false);
                 }}
-                className="w-full text-left px-3 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white text-base font-medium flex items-center gap-1"
+                className="w-full px-3 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white text-base font-medium flex items-center gap-1"
               >
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
                 Logout
@@ -156,7 +156,7 @@ export default function FeedbackPage() {
           <StarRating rating={rating} setRating={setRating} />
           <button
             onClick={submitFeedback}
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded font-semibold"
+            className="w-full py-3 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Submit
           </button>

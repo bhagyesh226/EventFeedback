@@ -15,9 +15,7 @@ export default function App() {
         <Route path="/login" element={<Login />} /> {/* ✅ Added route */}
         <Route path="/register" element={<Register />} />
         {/* Protected routes */}
-        <Route
-          path="/feedback"
-          element={
+        <Route path="/feedback" element={
             <ProtectedRoute>
               <Feedback />
             </ProtectedRoute>
